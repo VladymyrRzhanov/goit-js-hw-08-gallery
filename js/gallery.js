@@ -1,10 +1,3 @@
-// import galleryItems from "./gallery-items.js";
-
-// const refs = {
-//     gallery: document.querySelector('.js-gallery'),
-//     lightbox: document.querySelector('.js-lightbox'),
-//     btnLightboxClose: document.querySelector('[data-action="close-lightbox"]'),
-//     lightboxOverlay: document.querySelector('.lightbox__content'),
 import galleryItems from "./gallery-items.js";
 
 const refs = {
@@ -41,6 +34,10 @@ const openModalWindow = (e) => {
     refs.lightBoxImage.src = e.target.dataset.source;
     refs.lightBoxImage.alt = e.target.alt;
     refs.lightBoxImage.dataset.index = e.target.dataset.index;
+    addMethods();
+};
+
+const addMethods = () => {
     refs.btnLightboxClose.addEventListener('click', onCloseModalWindow);
     refs.lightboxOverlay.addEventListener('click', onCloseModalWindow);
     window.addEventListener('keydown', clickModalByKey);
@@ -50,15 +47,17 @@ const openModalWindow = (e) => {
 
 const onCloseModalWindow = e => {
     refs.lightbox.classList.remove('is-open');
-    
     refs.lightBoxImage.src = '';
     refs.lightBoxImage.alt = '';
+    removeMethods();
+};
+
+const removeMethods = () => {
     refs.btnLightboxClose.removeEventListener('click', onCloseModalWindow);
     refs.lightboxOverlay.removeEventListener('click', onCloseModalWindow);
     window.removeEventListener('keydown', clickModalByKey);
     window.removeEventListener('keydown', onLeftKeyChangeImage);
     window.removeEventListener('keydown', onRightKeyChangeImage);
-
 };
 
 const clickModalByKey = e => {
@@ -71,35 +70,31 @@ let index = 0;
 
 const onLeftKeyChangeImage = e => {
     index = Number(refs.lightBoxImage.dataset.index);
-            console.log(index);
 
     if (e.code === 'ArrowLeft') {
-            console.log(index);
 
-        if (index <= 0) {
+        if (index === 0) {
             index += galleryItems.length-1;
-            console.log(index);
             changedImageByKey();
         }
         else {
             index -= 1;
-            console.log(index);
             changedImageByKey();
         };
     };
 };
 
 const onRightKeyChangeImage = e => {
+    index = Number(refs.lightBoxImage.dataset.index);
+
     if (e.code === 'ArrowRight') {
-        if (index >= galleryItems.length-1) {
+        if (index === galleryItems.length-1) {
             index -= index;
-            console.log(index);
             changedImageByKey();
         } else {
             index += 1;
-            console.log(index);
             changedImageByKey();
-        }
+        };
     };
 };
 

@@ -56,13 +56,17 @@ const removeMethods = () => {
     refs.btnLightboxClose.removeEventListener('click', onCloseModalWindow);
     refs.lightboxOverlay.removeEventListener('click', onCloseModalWindow);
     window.removeEventListener('keydown', clickModalByKey);
-    window.removeEventListener('keydown', onLeftKeyChangeImage);
-    window.removeEventListener('keydown', onRightKeyChangeImage);
 };
 
 const clickModalByKey = e => {
     if (e.code === 'Escape') {
         onCloseModalWindow(e);
+    };
+    if (e.code === 'ArrowLeft') {
+        onLeftKeyChangeImage(e);
+    };
+    if (e.code === 'ArrowRight') {
+        onRightKeyChangeImage(e);
     };
 };
 
@@ -71,31 +75,23 @@ let index = 0;
 const onLeftKeyChangeImage = e => {
     index = Number(refs.lightBoxImage.dataset.index);
 
-    if (e.code === 'ArrowLeft') {
-
         if (index === 0) {
-            index += galleryItems.length-1;
-            changedImageByKey();
-        }
-        else {
+            index = galleryItems.length - 1;
+        } else {
             index -= 1;
-            changedImageByKey();
         };
-    };
+        changedImageByKey();
 };
 
 const onRightKeyChangeImage = e => {
     index = Number(refs.lightBoxImage.dataset.index);
 
-    if (e.code === 'ArrowRight') {
-        if (index === galleryItems.length-1) {
-            index -= index;
-            changedImageByKey();
+        if (index === galleryItems.length - 1) {
+            index = 0;
         } else {
             index += 1;
-            changedImageByKey();
         };
-    };
+        changedImageByKey();
 };
 
 const changedImageByKey = () => {

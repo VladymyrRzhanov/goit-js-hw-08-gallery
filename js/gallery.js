@@ -41,8 +41,6 @@ const addMethods = () => {
     refs.btnLightboxClose.addEventListener('click', onCloseModalWindow);
     refs.lightboxOverlay.addEventListener('click', onCloseModalWindow);
     window.addEventListener('keydown', clickModalByKey);
-    window.addEventListener('keydown', onLeftKeyChangeImage);
-    window.addEventListener('keydown', onRightKeyChangeImage);
 };
 
 const onCloseModalWindow = e => {
@@ -60,13 +58,13 @@ const removeMethods = () => {
 
 const clickModalByKey = e => {
     if (e.code === 'Escape') {
-        onCloseModalWindow(e);
+        onCloseModalWindow();
     };
     if (e.code === 'ArrowLeft') {
-        onLeftKeyChangeImage(e);
+        onLeftKeyChangeImage();
     };
     if (e.code === 'ArrowRight') {
-        onRightKeyChangeImage(e);
+        onRightKeyChangeImage();
     };
 };
 
